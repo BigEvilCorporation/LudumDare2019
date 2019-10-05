@@ -33,12 +33,14 @@ public class Player : MonoBehaviour
     private Vector3 m_velocity;
     private float m_fireTimer;
     private CharacterController m_characterController;
-    
+    private Sucker m_sucker;
+
     void Start()
     {
         m_characterController = GetComponent<CharacterController>();
+        m_sucker = GetComponentInChildren<Sucker>();
     }
-    
+
     void Update()
     {
         //Grab input
@@ -64,13 +66,13 @@ public class Player : MonoBehaviour
         m_characterController.Move(Velocity * Time.deltaTime);
 
         //Zero Y velocity if on floor
-        if((m_characterController.collisionFlags & CollisionFlags.Below) != 0)
+        if ((m_characterController.collisionFlags & CollisionFlags.Below) != 0)
         {
             m_velocity.y = 0.0f;
         }
 
         //Calc rotation direction
-        if(m_stickInputRight.SqrMagnitude() > DeadZoneRight)
+        if (m_stickInputRight.SqrMagnitude() > DeadZoneRight)
         {
             Vector2 directionVector = m_stickInputRight.normalized;
             Quaternion directionQuat = Quaternion.FromToRotation(new Vector3(0.0f, 0.0f, -1.0f), new Vector3(-directionVector.x, 0.0f, directionVector.y));
@@ -79,16 +81,44 @@ public class Player : MonoBehaviour
             transform.rotation = directionQuat;
         }
 
-        //Fire bullets
+        //Fire spitballs
         m_fireTimer -= Time.deltaTime;
 
         if (m_fireTimer <= 0.0f && Input.GetAxis("Fire1") > DeadZoneFire)
         {
             m_fireTimer = FireTime;
 
-            if(BulletPrefab)
+            if (BulletPrefab)
             {
                 Instantiate(BulletPrefab, transform.position, transform.rotation);
+            }
+        }
+
+        //Suck up goo
+        if (Input.GetAxis("Fire2") > DeadZoneFire)
+        {
+            m_sucker.StartSuck();
+        }
+        else
+        {
+            m_sucker.EndSuck();
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+
+            //If gooified enemy, consume
+            if(enemy.CurrentState == Enemy.State.Goo)
+            {
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                //Not gooified, harm player
             }
         }
     }

@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DebugOverlay : MonoBehaviour
 {
-    Player Player1;
+    Player m_player;
+    Sucker m_sucker;
 
     void Start()
     {
-        Player1 = FindObjectOfType<Player>();
+        m_player = FindObjectOfType<Player>();
+        m_sucker = FindObjectOfType<Sucker>();
     }
 
     void OnGUI()
@@ -19,12 +21,14 @@ public class DebugOverlay : MonoBehaviour
         float lineHeight = 20.0f;
         Rect rect = new Rect(x, y, lineWidth, lineHeight);
 
-        GUI.Label(rect, "Input left: " + Player1.StickInputLeft.ToString());
+        GUI.Label(rect, "Input left: " + m_player.StickInputLeft.ToString());
         rect.y += lineHeight;
-        GUI.Label(rect, "Input right: " + Player1.StickInputRight.ToString());
+        GUI.Label(rect, "Input right: " + m_player.StickInputRight.ToString());
         rect.y += lineHeight;
-        GUI.Label(rect, "Player pos: " + Player1.transform.position.ToString());
+        GUI.Label(rect, "Player pos: " + m_player.transform.position.ToString());
         rect.y += lineHeight;
-        GUI.Label(rect, "Player vel: " + Player1.Velocity.ToString());
+        GUI.Label(rect, "Player vel: " + m_player.Velocity.ToString());
+        rect.y += lineHeight;
+        GUI.Label(rect, "Objects being sucked: " + m_sucker.ObjectCount);
     }
 }
