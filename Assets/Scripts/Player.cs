@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public float Gravity = 9.8f;
     public float FireTime = 0.5f;
     public float StartTime = 2.0f;
+    public int MaxAudioSources = 4;
     public GameObject BulletPrefab;
     public EnemySpawner EnemySpawner;
     public EvolutionStage[] EvolutionStages;
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     public AudioClip[] SFX_Strain;
     public AudioClip[] SFX_Pop;
     public AudioClip[] SFX_Spit;
+    public AudioClip[] SFX_LevelUp;
 
     public Vector3 Velocity
     {
@@ -60,7 +62,8 @@ public class Player : MonoBehaviour
     private SpriteRenderer m_sprite;
     private CharacterController m_characterController;
     private Sucker m_sucker;
-    private AudioSource m_audio;
+    private AudioSource[] m_audioSources;
+    private AudioSource m_audioSourceSpit;
     private int m_currentStageIdx;
     private int m_currentStageEnergy;
     private float m_startTimer;
@@ -70,19 +73,31 @@ public class Player : MonoBehaviour
         m_sprite = GetComponentInChildren<SpriteRenderer>();
         m_characterController = GetComponent<CharacterController>();
         m_sucker = GetComponentInChildren<Sucker>();
-        m_audio = GetComponent<AudioSource>();
+        m_audioSourceSpit = gameObject.AddComponent<AudioSource>();
         m_initialMoveSpeed = MoveSpeed;
+        
+        m_audioSources = new AudioSource[MaxAudioSources];
+        for(int i = 0; i < MaxAudioSources; i++)
+        {
+            m_audioSources[i] = gameObject.AddComponent<AudioSource>();
+        }
+
         SetEvolutionStage(0);
 
         //Start invisible, play strain SFX
         m_sprite.enabled = false;
         m_startTimer = StartTime;
-        m_audio.clip = SFX_Strain[(int)Random.Range(0, SFX_Strain.Length)];
-        m_audio.Play();
+        PlaySFX(SFX_Strain[(int)Random.Range(0, SFX_Strain.Length)]);
     }
 
     void SetEvolutionStage(int index)
     {
+        //Play SFX
+        if (m_currentStageIdx != index)
+        {
+            PlaySFX(SFX_LevelUp[(int)Random.Range(0, SFX_LevelUp.Length)]);
+        }
+
         //Set stage index and reset energy counter
         m_currentStageIdx = index;
         m_currentStageEnergy = 0;
@@ -114,6 +129,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    void PlaySFX(AudioClip clip)
+    {
+        //Find free audio source
+        for(int i = 0; i < m_audioSources.Length; i++)
+        {
+            if(!m_audioSources[i].isPlaying)
+            {
+                m_audioSources[i].clip = clip;
+                m_audioSources[i].Play();
+            }
+        }
+    }
+
     void Update()
     {
         if (m_startTimer > 0.0f)
@@ -121,8 +149,7 @@ public class Player : MonoBehaviour
             m_startTimer -= Time.deltaTime;
             if (m_startTimer <= 0.0f)
             {
-                m_audio.clip = SFX_Pop[(int)Random.Range(0, SFX_Pop.Length)];
-                m_audio.Play();
+                PlaySFX(SFX_Pop[(int)Random.Range(0, SFX_Pop.Length)]);
                 m_sprite.enabled = true;
             }
         }
@@ -179,10 +206,10 @@ public class Player : MonoBehaviour
                     Spitball spitball = spitballObj.GetComponent<Spitball>();
                     spitball.Damage = CurrentEvolution.AttackDamage;
 
-                    if(!m_audio.isPlaying)
+                    if(!m_audioSourceSpit.isPlaying)
                     {
-                        m_audio.clip = SFX_Spit[(int)Random.Range(0, SFX_Spit.Length)];
-                        m_audio.Play();
+                        m_audioSourceSpit.clip = SFX_Spit[(int)Random.Range(0, SFX_Spit.Length)];
+                        m_audioSourceSpit.Play();
                     }
                 }
             }
@@ -215,8 +242,7 @@ public class Player : MonoBehaviour
                 Destroy(collision.gameObject);
 
                 //Play SFX
-                m_audio.clip = SFX_Pop[(int)Random.Range(0, SFX_Pop.Length)];
-                m_audio.Play();
+                PlaySFX(SFX_Pop[(int)Random.Range(0, SFX_Pop.Length)]);
             }
             else
             {

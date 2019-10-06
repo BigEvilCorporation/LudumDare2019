@@ -10,6 +10,7 @@ public class Spitball : MonoBehaviour
     public float FadeSpeed = 0.3f;
     public int Damage = 20;
     public Sprite FloorSplatSprite;
+    public int MaxAudioSources = 2;
     public AudioClip[] SFX_Splat;
 
     private enum State
@@ -25,7 +26,7 @@ public class Spitball : MonoBehaviour
     private Rigidbody m_rigidBody;
     private SphereCollider m_collision;
     private SpriteRenderer m_sprite;
-    private AudioSource m_audio;
+    private AudioSource[] m_audioSources;
 
     public void Splat()
     {
@@ -47,8 +48,7 @@ public class Spitball : MonoBehaviour
         m_sprite.sprite = FloorSplatSprite;
 
         //Play SFX
-        m_audio.clip = SFX_Splat[(int)Random.Range(0, SFX_Splat.Length)];
-        m_audio.Play();
+        PlaySFX(SFX_Splat[(int)Random.Range(0, SFX_Splat.Length)]);
     }
 
     void Start()
@@ -58,10 +58,28 @@ public class Spitball : MonoBehaviour
         m_rigidBody = GetComponent<Rigidbody>();
         m_collision = GetComponent<SphereCollider>();
         m_sprite = GetComponentInChildren<SpriteRenderer>();
-        m_audio = GetComponent<AudioSource>();
+
+        m_audioSources = new AudioSource[MaxAudioSources];
+        for (int i = 0; i < MaxAudioSources; i++)
+        {
+            m_audioSources[i] = gameObject.AddComponent<AudioSource>();
+        }
 
         //Apply initial impulse
         m_rigidBody.AddForce((transform.rotation * Vector3.forward) * InitialVelocity, ForceMode.Impulse);
+    }
+
+    void PlaySFX(AudioClip clip)
+    {
+        //Find free audio source
+        for (int i = 0; i < m_audioSources.Length; i++)
+        {
+            if (!m_audioSources[i].isPlaying)
+            {
+                m_audioSources[i].clip = clip;
+                m_audioSources[i].Play();
+            }
+        }
     }
 
     void Update()
