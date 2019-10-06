@@ -69,6 +69,8 @@ MonoBehaviour:
   FireTime: 0.2
   BulletPrefab: {fileID: 8486259306187713927, guid: 3d37b86a98b5ec94c88d28a946c52fb2,
     type: 3}
+  EnemySpawner: {fileID: 0}
+  EvolutionStages: []
 --- !u!143 &982593660978045742
 CharacterController:
   m_ObjectHideFlags: 0
@@ -243,10 +245,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 15.001465, y: 21}
+  m_Size: {x: 4, y: 8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!65 &1810796153614979297
@@ -275,3 +277,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SuckForce: 200
+  TextureScrollSpeed: 20
+  MeshMaterial: {fileID: 0}

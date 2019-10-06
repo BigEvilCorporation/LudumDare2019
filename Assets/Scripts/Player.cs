@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         //Set new avatar and scale
         EvolutionStage stage = CurrentEvolution;
         m_sprite.sprite = stage.Avatar;
-        m_sprite.transform.localScale = new Vector3(stage.ScaleMin, stage.ScaleMin, stage.ScaleMin);
+        transform.localScale = new Vector3(stage.ScaleMin, stage.ScaleMin, stage.ScaleMin);
 
         //Set enemy spawner to match
         EnemySpawner.SetEvolutionStage(index);
