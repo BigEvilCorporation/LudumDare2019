@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spitball : MonoBehaviour
 {
     public float InitialVelocity = 50.0f;
+    public float VelocityScale = 1.0f;
     public float MaxDistance = 2000.0f;
     public float FadeStartTime = 2.0f;
     public float FadeSpeed = 0.3f;

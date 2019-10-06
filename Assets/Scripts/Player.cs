@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     {
         public string Name;
         public int AttackDamage;
+        public float AttackVelocityScale;
         public int EnergyUntilNext;
         public float ScaleMin;
         public float ScaleMax;
@@ -106,6 +107,9 @@ public class Player : MonoBehaviour
         EvolutionStage stage = CurrentEvolution;
         m_sprite.sprite = stage.Avatar;
         transform.localScale = new Vector3(stage.ScaleMin, stage.ScaleMin, stage.ScaleMin);
+
+        //Scale move speed
+        MoveSpeed = m_initialMoveSpeed * stage.MoveSpeedScale;
 
         //Set enemy spawner to match
         EnemySpawner.SetEvolutionStage(index);
@@ -205,8 +209,9 @@ public class Player : MonoBehaviour
                     GameObject spitballObj = Instantiate(BulletPrefab, transform.position, transform.rotation) as GameObject;
                     Spitball spitball = spitballObj.GetComponent<Spitball>();
                     spitball.Damage = CurrentEvolution.AttackDamage;
+                    spitball.VelocityScale = CurrentEvolution.AttackVelocityScale;
 
-                    if(!m_audioSourceSpit.isPlaying)
+                    if (!m_audioSourceSpit.isPlaying)
                     {
                         m_audioSourceSpit.clip = SFX_Spit[(int)Random.Range(0, SFX_Spit.Length)];
                         m_audioSourceSpit.Play();
