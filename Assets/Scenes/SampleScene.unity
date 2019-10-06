@@ -299,6 +299,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &265039124 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+    type: 3}
+  m_PrefabInstance: {fileID: 1830997266}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f676d28ef994c684597b201a2dcca768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &298931651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1322,7 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ef74331b9bae943a7e14971473bed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetPlayer: {fileID: 0}
+  TargetPlayer: {fileID: 265039124}
   BoomHeight: 40
   BoomDistance: 0
   BoomAngle: 90
@@ -1540,6 +1552,73 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[0].EnergyUntilNext
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[0].ScaleMin
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[0].ScaleMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[0].Avatar
+      value: 
+      objectReference: {fileID: 21300000, guid: 3c5460bdf1bac7a4bb953e5e8a2ebe6d,
+        type: 3}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[1].EnergyUntilNext
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[1].ScaleMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[1].ScaleMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[1].Avatar
+      value: 
+      objectReference: {fileID: 21300000, guid: 95bbfe3e235174f4384033df75d58dbd,
+        type: 3}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[0].Name
+      value: Atom
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[1].Name
+      value: Cell
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[0].AttackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[1].AttackDamage
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d328213a26f7f024b8554e4ccf459251, type: 3}

@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public Sprite SpriteNormal;
     public Sprite SpriteGooified;
+    public int Energy = 1;
 
     public enum State
     {

@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [System.Serializable]
+    public class EvolutionStage
+    {
+        public string Name;
+        public int AttackDamage;
+        public int EnergyUntilNext;
+        public float ScaleMin;
+        public float ScaleMax;
+        public Sprite Avatar;
+    }
+
     public Vector2 MoveSpeed = new Vector2(6.0f, 6.0f);
     public Vector2 Drag = new Vector2(10.0f, 10.0f);
     public Vector2 DeadZoneLeft = new Vector2(0.4f, 0.4f);
@@ -12,6 +23,7 @@ public class Player : MonoBehaviour
     public float Gravity = 9.8f;
     public float FireTime = 0.5f;
     public GameObject BulletPrefab;
+    public EvolutionStage[] EvolutionStages;
 
     public Vector3 Velocity
     {
@@ -28,17 +40,54 @@ public class Player : MonoBehaviour
         get { return m_stickInputRight; }
     }
 
+    public EvolutionStage CurrentEvolution
+    {
+        get { return EvolutionStages[m_currentStageIdx]; }
+    }
+
     private Vector2 m_stickInputLeft;
     private Vector2 m_stickInputRight;
     private Vector3 m_velocity;
     private float m_fireTimer;
+    private SpriteRenderer m_sprite;
     private CharacterController m_characterController;
     private Sucker m_sucker;
+    private int m_currentStageIdx;
+    private int m_currentStageEnergy;
 
     void Start()
     {
+        m_sprite = GetComponentInChildren<SpriteRenderer>();
         m_characterController = GetComponent<CharacterController>();
         m_sucker = GetComponentInChildren<Sucker>();
+        SetEvolutionStage(0);
+    }
+
+    void SetEvolutionStage(int index)
+    {
+        m_currentStageIdx = index;
+        m_currentStageEnergy = 0;
+        EvolutionStage stage = CurrentEvolution;
+        m_sprite.sprite = stage.Avatar;
+        m_sprite.transform.localScale = new Vector3(stage.ScaleMin, stage.ScaleMin, stage.ScaleMin);
+    }
+
+    void AddEnergy(int energy)
+    {
+        //Add to counter
+        m_currentStageEnergy += energy;
+
+        //Increase scale
+        EvolutionStage stage = CurrentEvolution;
+        float stageTime = (float)m_currentStageEnergy / (float)stage.EnergyUntilNext;
+        float scale = Mathf.Lerp(stage.ScaleMin, stage.ScaleMax, stageTime);
+        m_sprite.transform.localScale = new Vector3(scale, scale, scale);
+
+        //If hit next evolution stage, switch
+        if (m_currentStageEnergy >= EvolutionStages[m_currentStageIdx].EnergyUntilNext)
+        {
+            SetEvolutionStage(m_currentStageIdx + 1);
+        }
     }
 
     void Update()
@@ -90,7 +139,9 @@ public class Player : MonoBehaviour
 
             if (BulletPrefab)
             {
-                Instantiate(BulletPrefab, transform.position, transform.rotation);
+                GameObject spitballObj = Instantiate(BulletPrefab, transform.position, transform.rotation) as GameObject;
+                Spitball spitball = spitballObj.GetComponent<Spitball>();
+                spitball.Damage = CurrentEvolution.AttackDamage;
             }
         }
 
@@ -114,6 +165,10 @@ public class Player : MonoBehaviour
             //If gooified enemy, consume
             if(enemy.CurrentState == Enemy.State.Goo)
             {
+                //Take energy
+                AddEnergy(enemy.Energy);
+
+                //Remove enemy
                 Destroy(collision.gameObject);
             }
             else
