@@ -213,6 +213,10 @@ public class Player : MonoBehaviour
 
                 //Remove enemy
                 Destroy(collision.gameObject);
+
+                //Play SFX
+                m_audio.clip = SFX_Pop[(int)Random.Range(0, SFX_Pop.Length)];
+                m_audio.Play();
             }
             else
             {
