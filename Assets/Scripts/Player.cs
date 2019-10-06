@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public float Gravity = 9.8f;
     public float FireTime = 0.5f;
     public GameObject BulletPrefab;
+    public EnemySpawner EnemySpawner;
     public EvolutionStage[] EvolutionStages;
 
     public Vector3 Velocity
@@ -65,11 +66,17 @@ public class Player : MonoBehaviour
 
     void SetEvolutionStage(int index)
     {
+        //Set stage index and reset energy counter
         m_currentStageIdx = index;
         m_currentStageEnergy = 0;
+
+        //Set new avatar and scale
         EvolutionStage stage = CurrentEvolution;
         m_sprite.sprite = stage.Avatar;
         m_sprite.transform.localScale = new Vector3(stage.ScaleMin, stage.ScaleMin, stage.ScaleMin);
+
+        //Set enemy spawner to match
+        EnemySpawner.SetEvolutionStage(index);
     }
 
     void AddEnergy(int energy)

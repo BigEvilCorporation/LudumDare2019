@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
     {
         
     }
-
+    
     public void Gooify()
     {
         m_state = State.Goo;
