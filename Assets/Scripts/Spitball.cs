@@ -9,6 +9,7 @@ public class Spitball : MonoBehaviour
     public float FadeStartTime = 2.0f;
     public float FadeSpeed = 0.3f;
     public int Damage = 20;
+    public Sprite FloorSplatSprite;
 
     private enum State
     {
@@ -39,6 +40,9 @@ public class Spitball : MonoBehaviour
 
         //Start fade timer
         m_fadeTimer = FadeStartTime;
+
+        //Switch sprite
+        m_sprite.sprite = FloorSplatSprite;
     }
 
     void Start()

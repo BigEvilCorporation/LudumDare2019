@@ -143,6 +143,8 @@ MonoBehaviour:
   MaxDistance: 2000
   FadeStartTime: 2
   FadeSpeed: 0.3
+  Damage: 20
+  FloorSplatSprite: {fileID: 21300000, guid: 2f1e00fa553af9848a6924fa13c84ed9, type: 3}
 --- !u!54 &145801880567642974
 Rigidbody:
   m_ObjectHideFlags: 0
