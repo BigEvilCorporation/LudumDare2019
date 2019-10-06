@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
 
     public AudioClip[] SFX_Strain;
     public AudioClip[] SFX_Pop;
-    public AudioClip[] SFX_Suck;
     public AudioClip[] SFX_Spit;
 
     public Vector3 Velocity
@@ -179,6 +178,12 @@ public class Player : MonoBehaviour
                     GameObject spitballObj = Instantiate(BulletPrefab, transform.position, transform.rotation) as GameObject;
                     Spitball spitball = spitballObj.GetComponent<Spitball>();
                     spitball.Damage = CurrentEvolution.AttackDamage;
+
+                    if(!m_audio.isPlaying)
+                    {
+                        m_audio.clip = SFX_Spit[(int)Random.Range(0, SFX_Spit.Length)];
+                        m_audio.Play();
+                    }
                 }
             }
 

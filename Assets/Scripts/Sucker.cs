@@ -7,30 +7,41 @@ public class Sucker : MonoBehaviour
     public float SuckForce = 200.0f;
     public float TextureScrollSpeed = 1.0f;
     public Material MeshMaterial;
+    public AudioClip[] SFX_Suck;
 
     public int ObjectCount
     {
         get { return m_affectedObjects.Count; }
     }
 
+    public bool isSucking
+    {
+        get { return m_collision.enabled; }
+    }
+
     BoxCollider m_collision;
     Mesh m_mesh;
     MeshFilter m_meshFilter;
     MeshRenderer m_meshRenderer;
+    AudioSource m_audio;
     List<Suckable> m_affectedObjects = new List<Suckable>();
     float m_textureScroll;
+    bool m_audioEnabled = false;
 
     public void StartSuck()
     {
         m_collision.enabled = true;
         m_meshRenderer.enabled = true;
+        m_audioEnabled = true;
     }
 
     public void EndSuck()
     {
         m_collision.enabled = false;
         m_meshRenderer.enabled = false;
+        m_audioEnabled = false;
         m_affectedObjects.Clear();
+        m_audio.Stop();
     }
 
     public void AddAffectedObject(Suckable suckable)
@@ -46,6 +57,7 @@ public class Sucker : MonoBehaviour
     void Start()
     {
         m_collision = GetComponent<BoxCollider>();
+        m_audio = GetComponent<AudioSource>();
 
         CreateMesh();
         
@@ -111,5 +123,12 @@ public class Sucker : MonoBehaviour
         //Scroll UV
         m_textureScroll += TextureScrollSpeed * Time.deltaTime;
         m_meshRenderer.material.mainTextureOffset = new Vector2(0.0f, m_textureScroll);
+
+        //Audio
+        if (m_audioEnabled && !m_audio.isPlaying)
+        {
+            m_audio.clip = SFX_Suck[(int)Random.Range(0, SFX_Suck.Length)];
+            m_audio.Play();
+        }
     }
 }
