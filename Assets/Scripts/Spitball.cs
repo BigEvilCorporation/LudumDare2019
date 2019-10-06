@@ -104,11 +104,13 @@ public class Spitball : MonoBehaviour
                 }
             }
         }
-
-        //Destroy if out of bounds
-        if ((transform.position - m_startPosition).sqrMagnitude > MaxDistance)
+        else
         {
-            Destroy(gameObject);
+            //Splat if out of bounds
+            if ((transform.position - m_startPosition).sqrMagnitude > MaxDistance)
+            {
+                Splat();
+            }
         }
     }
 
