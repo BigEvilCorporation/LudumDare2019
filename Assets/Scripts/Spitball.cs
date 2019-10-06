@@ -10,6 +10,7 @@ public class Spitball : MonoBehaviour
     public float FadeSpeed = 0.3f;
     public int Damage = 20;
     public Sprite FloorSplatSprite;
+    public AudioClip[] SFX_Splat;
 
     private enum State
     {
@@ -24,6 +25,7 @@ public class Spitball : MonoBehaviour
     private Rigidbody m_rigidBody;
     private SphereCollider m_collision;
     private SpriteRenderer m_sprite;
+    private AudioSource m_audio;
 
     public void Splat()
     {
@@ -43,6 +45,10 @@ public class Spitball : MonoBehaviour
 
         //Switch sprite
         m_sprite.sprite = FloorSplatSprite;
+
+        //Play SFX
+        m_audio.clip = SFX_Splat[(int)Random.Range(0, SFX_Splat.Length)];
+        m_audio.Play();
     }
 
     void Start()
@@ -52,6 +58,7 @@ public class Spitball : MonoBehaviour
         m_rigidBody = GetComponent<Rigidbody>();
         m_collision = GetComponent<SphereCollider>();
         m_sprite = GetComponentInChildren<SpriteRenderer>();
+        m_audio = GetComponent<AudioSource>();
 
         //Apply initial impulse
         m_rigidBody.AddForce((transform.rotation * Vector3.forward) * InitialVelocity, ForceMode.Impulse);
