@@ -582,6 +582,14 @@ MonoBehaviour:
     RandSpawnTimeMax: 5
     SpriteNormal: {fileID: 21300000, guid: 7c5e68cffcc4cd74da8fcd47c15bc82c, type: 3}
     SpriteGooified: {fileID: 21300000, guid: 3242625ab7891fa4caa885f7c6a38b72, type: 3}
+  - Name: Goo
+    AttackDamage: 4
+    ScaleMin: 3
+    ScaleMax: 4
+    RandSpawnTimeMin: 3
+    RandSpawnTimeMax: 5
+    SpriteNormal: {fileID: 21300000, guid: d612d8170af48d14393beaf04a47829f, type: 3}
+    SpriteGooified: {fileID: 21300000, guid: d612d8170af48d14393beaf04a47829f, type: 3}
 --- !u!4 &1063673251
 Transform:
   m_ObjectHideFlags: 0
@@ -666,7 +674,7 @@ PrefabInstance:
     - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
         type: 3}
       propertyPath: EvolutionStages.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
         type: 3}
@@ -766,5 +774,66 @@ PrefabInstance:
       propertyPath: EnemySpawner
       value: 
       objectReference: {fileID: 1063673250}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[3].Name
+      value: Goo
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[3].AttackDamage
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[3].EnergyUntilNext
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[3].ScaleMin
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[3].ScaleMax
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[3].Avatar
+      value: 
+      objectReference: {fileID: 21300000, guid: f59a744a4e2ec9c448cadd7b099efc59,
+        type: 3}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[1].MoveSpeedScale
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[2].MoveSpeedScale
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[0].MoveSpeedScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: EvolutionStages.Array.data[3].MoveSpeedScale
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: Drag.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: Drag.y
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d328213a26f7f024b8554e4ccf459251, type: 3}

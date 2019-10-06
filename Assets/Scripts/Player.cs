@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
         public int EnergyUntilNext;
         public float ScaleMin;
         public float ScaleMax;
+        public float MoveSpeedScale;
         public Sprite Avatar;
     }
 
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
 
     private Vector2 m_stickInputLeft;
     private Vector2 m_stickInputRight;
+    private Vector2 m_initialMoveSpeed;
     private Vector3 m_velocity;
     private float m_fireTimer;
     private SpriteRenderer m_sprite;
@@ -61,6 +63,7 @@ public class Player : MonoBehaviour
         m_sprite = GetComponentInChildren<SpriteRenderer>();
         m_characterController = GetComponent<CharacterController>();
         m_sucker = GetComponentInChildren<Sucker>();
+        m_initialMoveSpeed = MoveSpeed;
         SetEvolutionStage(0);
     }
 
@@ -112,8 +115,8 @@ public class Player : MonoBehaviour
         m_stickInputLeft = stickInputLeft;
         m_stickInputRight = stickInputRight;
 
-        //Apply velocity
-        m_velocity += new Vector3(m_stickInputLeft.x, -Gravity * Time.deltaTime, m_stickInputLeft.y);
+        //Apply velocity (scaled by current evolution)
+        m_velocity += new Vector3(m_stickInputLeft.x * CurrentEvolution.MoveSpeedScale, -Gravity * Time.deltaTime, m_stickInputLeft.y * CurrentEvolution.MoveSpeedScale);
 
         //Apply drag
         m_velocity.x /= 1.0f + Drag.x * Time.deltaTime;
