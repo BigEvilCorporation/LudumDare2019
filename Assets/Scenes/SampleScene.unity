@@ -924,6 +924,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
         type: 3}
+      propertyPath: SFX_Pain.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
       propertyPath: EvolutionStages.Array.data[0].EnergyUntilNext
       value: 10
       objectReference: {fileID: 0}
@@ -1232,6 +1237,36 @@ PrefabInstance:
       propertyPath: ExperienceUI
       value: 
       objectReference: {fileID: 1324039508}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: SFX_Pain.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 46bacd9998df19446b8322a4975bf54c, type: 3}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: SFX_Pain.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9600381eae5ad7f438679ac82fb11ff8, type: 3}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: SFX_Pain.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 72944fe2b1571ec4ca28f5f2c8222fd3, type: 3}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: SFX_Pain.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: a0dc4e59f3a37d640a0b3acf2cc99c80, type: 3}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: SFX_Pain.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8566972351b80bd49a9a35bc3bcf626f, type: 3}
+    - target: {fileID: 982593660978045741, guid: d328213a26f7f024b8554e4ccf459251,
+        type: 3}
+      propertyPath: SFX_Pain.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2fcf4028f3f61684c896f7bc3c13df59, type: 3}
     - target: {fileID: 982593660978045714, guid: d328213a26f7f024b8554e4ccf459251,
         type: 3}
       propertyPath: m_LocalPosition.x

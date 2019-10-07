@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public Vector2 MoveSpeed = new Vector2(6.0f, 6.0f);
     public Vector2 Drag = new Vector2(10.0f, 10.0f);
     public Vector2 DeadZoneLeft = new Vector2(0.4f, 0.4f);
+    public float DamageImpulse = 10.0f;
     public float DeadZoneRight = 0.1f;
     public float DeadZoneFire = 0.1f;
     public float Gravity = 9.8f;
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
     public AudioClip[] SFX_Pop;
     public AudioClip[] SFX_Spit;
     public AudioClip[] SFX_LevelUp;
+    public AudioClip[] SFX_Pain;
 
     public Vector3 Velocity
     {
@@ -155,6 +157,17 @@ public class Player : MonoBehaviour
         m_experienceSlider.value = (float)m_currentStageEnergy / (float)stage.EnergyUntilNext;
     }
 
+    void RemoveEnergy(int energy)
+    {
+        //Sub from counter
+        m_currentStageEnergy -= energy;
+        if (m_currentStageEnergy < 0)
+            m_currentStageEnergy = 0;
+
+        //Update UI
+        m_experienceSlider.value = (float)m_currentStageEnergy / (float)EvolutionStages[m_currentStageIdx].EnergyUntilNext;
+    }
+
     void PlaySFX(AudioClip clip)
     {
         //Find free audio source
@@ -260,8 +273,8 @@ public class Player : MonoBehaviour
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
-            //If gooified enemy, consume
-            if(enemy.CurrentState == Enemy.State.Goo)
+            //If gooified enemy and sucking, consume
+            if(m_sucker.isSucking && enemy.CurrentState == Enemy.State.Goo)
             {
                 //Take energy
                 AddEnergy(enemy.Energy);
@@ -272,9 +285,20 @@ public class Player : MonoBehaviour
                 //Play SFX
                 PlaySFX(SFX_Pop[(int)Random.Range(0, SFX_Pop.Length)]);
             }
-            else
+            else if(enemy.CurrentState == Enemy.State.Living)
             {
-                //Not gooified, harm player
+                //Enemy alive, harm player
+                RemoveEnergy(enemy.Energy);
+
+                //Impulse
+                Vector3 impulse = (transform.position - enemy.transform.position).normalized;
+                impulse.x *= DamageImpulse;
+                impulse.z *= DamageImpulse;
+
+                m_velocity += impulse;
+
+                //Play hurt SFX
+                PlaySFX(SFX_Pain[(int)Random.Range(0, SFX_Pain.Length)]);
             }
         }
     }
