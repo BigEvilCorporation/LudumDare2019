@@ -6,7 +6,10 @@ public class Enemy : MonoBehaviour
 {
     public Sprite SpriteNormal;
     public Sprite SpriteGooified;
+    public Player TargetPlayer;
     public int Energy = 1;
+    public float MoveSpeed;
+    public Vector2 Drag = new Vector2(10.0f, 10.0f);
 
     public enum State
     {
@@ -22,7 +25,8 @@ public class Enemy : MonoBehaviour
     State m_state;
     Rigidbody m_rigidBody;
     SpriteRenderer m_sprite;
-    
+    Vector3 m_velocity;
+
     void Start()
     {
         m_state = State.Living;
@@ -34,7 +38,18 @@ public class Enemy : MonoBehaviour
     
     void Update()
     {
-        
+        //Target player
+        Vector3 direction = (TargetPlayer.transform.position - transform.position).normalized;
+
+        //Apply velocity (scaled by current evolution)
+        m_velocity += new Vector3(direction.x * MoveSpeed, 0.0f, direction.z * MoveSpeed);
+
+        //Apply drag and gravity
+        m_velocity.x /= 1.0f + Drag.x * Time.deltaTime;
+        m_velocity.y = m_rigidBody.velocity.y;
+        m_velocity.z /= 1.0f + Drag.y * Time.deltaTime;
+
+        m_rigidBody.velocity = m_velocity;
     }
     
     public void Gooify()

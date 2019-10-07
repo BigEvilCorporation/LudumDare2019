@@ -231,7 +231,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1830997266}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1166686491}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f676d28ef994c684597b201a2dcca768, type: 3}
@@ -738,6 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34c5dd16715c614da7f6db079b7671b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetPlayer: {fileID: 1166686491}
   GameCamera: {fileID: 963194227}
   EnemyPrefab: {fileID: 1218223215526521177, guid: 51a6946775f0e5045bd55cc360f2b91a,
     type: 3}
@@ -748,6 +749,7 @@ MonoBehaviour:
     ScaleMax: 1
     RandSpawnTimeMin: 1
     RandSpawnTimeMax: 2
+    MoveSpeed: 1
     SpriteNormal: {fileID: 21300000, guid: ca624a3aee8060f4e96c2b64d4fff9e8, type: 3}
     SpriteGooified: {fileID: 21300000, guid: b9e140d279982a24f98d8a98783f4827, type: 3}
   - Name: Cell
@@ -756,6 +758,7 @@ MonoBehaviour:
     ScaleMax: 2
     RandSpawnTimeMin: 2
     RandSpawnTimeMax: 5
+    MoveSpeed: 1
     SpriteNormal: {fileID: 21300000, guid: 4621ef9c15b77784c89d073c1365c334, type: 3}
     SpriteGooified: {fileID: 21300000, guid: 6c125ebe3050c2b4cb7954e1644ae4ed, type: 3}
   - Name: Molecule
@@ -764,6 +767,7 @@ MonoBehaviour:
     ScaleMax: 3
     RandSpawnTimeMin: 3
     RandSpawnTimeMax: 5
+    MoveSpeed: 2
     SpriteNormal: {fileID: 21300000, guid: 7c5e68cffcc4cd74da8fcd47c15bc82c, type: 3}
     SpriteGooified: {fileID: 21300000, guid: 3242625ab7891fa4caa885f7c6a38b72, type: 3}
   - Name: Goo
@@ -772,6 +776,7 @@ MonoBehaviour:
     ScaleMax: 4
     RandSpawnTimeMin: 3
     RandSpawnTimeMax: 5
+    MoveSpeed: 2
     SpriteNormal: {fileID: 21300000, guid: d612d8170af48d14393beaf04a47829f, type: 3}
     SpriteGooified: {fileID: 21300000, guid: 81482298e51fe20429beec04b309f09b, type: 3}
   - Name: Slime
@@ -780,6 +785,7 @@ MonoBehaviour:
     ScaleMax: 5
     RandSpawnTimeMin: 3
     RandSpawnTimeMax: 5
+    MoveSpeed: 3
     SpriteNormal: {fileID: 21300000, guid: a178bccfc64acea438c7a5326bdc9f43, type: 3}
     SpriteGooified: {fileID: 21300000, guid: 71ad1b1b965c53944949a51a32db5a9f, type: 3}
 --- !u!4 &1063673251
@@ -867,6 +873,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartTime: 0.5
   WaitForPlayer: {fileID: 265039124}
+--- !u!1 &1166686491 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 982593660978045715, guid: d328213a26f7f024b8554e4ccf459251,
+    type: 3}
+  m_PrefabInstance: {fileID: 1830997266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1324039508 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7370453075089247401, guid: 6088e21e39aac784fb7473d7e2af4954,

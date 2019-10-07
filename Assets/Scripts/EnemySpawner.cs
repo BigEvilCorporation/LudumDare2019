@@ -13,10 +13,12 @@ public class EnemySpawner : MonoBehaviour
         public float ScaleMax;
         public float RandSpawnTimeMin;
         public float RandSpawnTimeMax;
+        public float MoveSpeed;
         public Sprite SpriteNormal;
         public Sprite SpriteGooified;
     }
 
+    public GameObject TargetPlayer;
     public Camera GameCamera;
     public GameObject EnemyPrefab;
     public EvolutionStage[] EvolutionStages;
@@ -28,6 +30,7 @@ public class EnemySpawner : MonoBehaviour
 
     float m_nextSpawnTime;
     int m_currentStageIdx;
+    private Player m_targetPlayer;
 
     public void SetEvolutionStage(int index)
     {
@@ -92,23 +95,29 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemyObj = Instantiate(EnemyPrefab, position, Quaternion.identity) as GameObject;
         Enemy enemy = enemyObj.GetComponent<Enemy>();
 
-        //Set sprites
+        //Set properies
         enemy.SpriteNormal = CurrentEvolution.SpriteNormal;
         enemy.SpriteGooified = CurrentEvolution.SpriteGooified;
+        enemy.TargetPlayer = m_targetPlayer;
+        enemy.MoveSpeed = CurrentEvolution.MoveSpeed;
     }
 
     void Start()
     {
+        m_targetPlayer = TargetPlayer.GetComponent<Player>();
         SetEvolutionStage(0);
     }
     
     void Update()
     {
-        m_nextSpawnTime -= Time.deltaTime;
-        if(m_nextSpawnTime <= 0.0f)
+        if(m_targetPlayer.CurrentState == Player.State.Spawned)
         {
-            Spawn();
-            m_nextSpawnTime = CalculateSpawnTime(CurrentEvolution);
+            m_nextSpawnTime -= Time.deltaTime;
+            if (m_nextSpawnTime <= 0.0f)
+            {
+                Spawn();
+                m_nextSpawnTime = CalculateSpawnTime(CurrentEvolution);
+            }
         }
     }
 }
