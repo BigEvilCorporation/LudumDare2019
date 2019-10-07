@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     {
         public string Name;
         public int AttackDamage;
+        public int Health;
         public float ScaleMin;
         public float ScaleMax;
         public float RandSpawnTimeMin;
@@ -100,6 +101,7 @@ public class EnemySpawner : MonoBehaviour
         enemy.SpriteGooified = CurrentEvolution.SpriteGooified;
         enemy.TargetPlayer = m_targetPlayer;
         enemy.MoveSpeed = CurrentEvolution.MoveSpeed;
+        enemy.GetComponentInChildren<Suckable>().Health = CurrentEvolution.Health;
     }
 
     void Start()
