@@ -8,6 +8,9 @@ public class IntroManager : MonoBehaviour
 {
     public GameObject m_image02;
     public GameObject m_image03;
+    public AudioClip Sound1;
+    public AudioClip Sound2;
+    public AudioClip Sound3;
 
     float m_timer = 0f;
 
@@ -15,10 +18,14 @@ public class IntroManager : MonoBehaviour
     bool isActive02 = false;
     bool isChangingScene = false;
 
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = Sound1;
+        audioSource.Play();
     }
 
     // Update is called once per frame
@@ -30,6 +37,8 @@ public class IntroManager : MonoBehaviour
         {
             isActive01 = true;
             m_image02.SetActive(true);
+            audioSource.clip = Sound2;
+            audioSource.Play();
 
             return;
         }
@@ -38,6 +47,8 @@ public class IntroManager : MonoBehaviour
         {
             isActive02 = true;
             m_image03.SetActive(true);
+            audioSource.clip = Sound3;
+            audioSource.Play();
 
             return;
         }

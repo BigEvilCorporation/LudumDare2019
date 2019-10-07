@@ -328,6 +328,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_image02: {fileID: 1561547869}
   m_image03: {fileID: 1801865549}
+  Sound1: {fileID: 8300000, guid: 76704390eaab4b04ba22a07fcd82a2a5, type: 3}
+  Sound2: {fileID: 8300000, guid: c90dd52a1e1629947a6320869ede3cb5, type: 3}
+  Sound3: {fileID: 8300000, guid: 28b120e361014604f8aa0ac48a7c68d3, type: 3}
 --- !u!114 &1536214195
 MonoBehaviour:
   m_ObjectHideFlags: 0
