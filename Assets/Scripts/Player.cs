@@ -17,6 +17,12 @@ public class Player : MonoBehaviour
         public Sprite Avatar;
     }
 
+    public enum State
+    {
+        Spawning,
+        Spawned
+    }
+
     public Vector2 MoveSpeed = new Vector2(6.0f, 6.0f);
     public Vector2 Drag = new Vector2(10.0f, 10.0f);
     public Vector2 DeadZoneLeft = new Vector2(0.4f, 0.4f);
@@ -28,6 +34,7 @@ public class Player : MonoBehaviour
     public int MaxAudioSources = 4;
     public GameObject BulletPrefab;
     public EnemySpawner EnemySpawner;
+    public GameObject ExperienceUI;
     public EvolutionStage[] EvolutionStages;
 
     public AudioClip[] SFX_Strain;
@@ -55,11 +62,17 @@ public class Player : MonoBehaviour
         get { return EvolutionStages[m_currentStageIdx]; }
     }
 
+    public State CurrentState
+    {
+        get { return m_state; }
+    }
+
     private Vector2 m_stickInputLeft;
     private Vector2 m_stickInputRight;
     private Vector2 m_initialMoveSpeed;
     private Vector3 m_velocity;
     private float m_fireTimer;
+    private State m_state = State.Spawning;
     private SpriteRenderer m_sprite;
     private CharacterController m_characterController;
     private Sucker m_sucker;
@@ -68,6 +81,7 @@ public class Player : MonoBehaviour
     private int m_currentStageIdx;
     private int m_currentStageEnergy;
     private float m_startTimer;
+    private UnityEngine.UI.Slider m_experienceSlider;
 
     void Start()
     {
@@ -75,7 +89,9 @@ public class Player : MonoBehaviour
         m_characterController = GetComponent<CharacterController>();
         m_sucker = GetComponentInChildren<Sucker>();
         m_audioSourceSpit = gameObject.AddComponent<AudioSource>();
+        m_experienceSlider = ExperienceUI.GetComponentInChildren<UnityEngine.UI.Slider>();
         m_initialMoveSpeed = MoveSpeed;
+        m_state = State.Spawning;
         
         m_audioSources = new AudioSource[MaxAudioSources];
         for(int i = 0; i < MaxAudioSources; i++)
@@ -113,6 +129,9 @@ public class Player : MonoBehaviour
 
         //Set enemy spawner to match
         EnemySpawner.SetEvolutionStage(index);
+
+        //Update UI
+        m_experienceSlider.value = 0.0f;
     }
 
     void AddEnergy(int energy)
@@ -131,6 +150,9 @@ public class Player : MonoBehaviour
         {
             SetEvolutionStage(m_currentStageIdx + 1);
         }
+
+        //Update UI
+        m_experienceSlider.value = (float)m_currentStageEnergy / (float)stage.EnergyUntilNext;
     }
 
     void PlaySFX(AudioClip clip)
@@ -155,6 +177,7 @@ public class Player : MonoBehaviour
             {
                 PlaySFX(SFX_Pop[(int)Random.Range(0, SFX_Pop.Length)]);
                 m_sprite.enabled = true;
+                m_state = State.Spawned;
             }
         }
         else
