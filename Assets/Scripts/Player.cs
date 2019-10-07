@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public int MaxAudioSources = 4;
     public GameObject BulletPrefab;
     public EnemySpawner EnemySpawner;
+    public GameObject ExperienceUI;
     public EvolutionStage[] EvolutionStages;
 
     public AudioClip[] SFX_Strain;
@@ -80,6 +81,7 @@ public class Player : MonoBehaviour
     private int m_currentStageIdx;
     private int m_currentStageEnergy;
     private float m_startTimer;
+    private UnityEngine.UI.Slider m_experienceSlider;
 
     void Start()
     {
@@ -87,6 +89,7 @@ public class Player : MonoBehaviour
         m_characterController = GetComponent<CharacterController>();
         m_sucker = GetComponentInChildren<Sucker>();
         m_audioSourceSpit = gameObject.AddComponent<AudioSource>();
+        m_experienceSlider = ExperienceUI.GetComponentInChildren<UnityEngine.UI.Slider>();
         m_initialMoveSpeed = MoveSpeed;
         m_state = State.Spawning;
         
@@ -126,6 +129,9 @@ public class Player : MonoBehaviour
 
         //Set enemy spawner to match
         EnemySpawner.SetEvolutionStage(index);
+
+        //Update UI
+        m_experienceSlider.value = 0.0f;
     }
 
     void AddEnergy(int energy)
@@ -144,6 +150,9 @@ public class Player : MonoBehaviour
         {
             SetEvolutionStage(m_currentStageIdx + 1);
         }
+
+        //Update UI
+        m_experienceSlider.value = (float)m_currentStageEnergy / (float)stage.EnergyUntilNext;
     }
 
     void PlaySFX(AudioClip clip)
